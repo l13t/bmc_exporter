@@ -16,9 +16,9 @@ jobs:
         chmod +x install.sh
         ./install.sh --user
         rm -f install.sh
-    - run: bazel build //:archive
     - run: bazel run //:bmc_exporter -- --version
+    - run: bazel build //:archive
     - uses: actions/upload-artifact@v2
       with:
         name: archive
-        path: $(bazel info bazel-bin)/archive.tar.gz
+        path: bazel-bin/archive.tar.gz
