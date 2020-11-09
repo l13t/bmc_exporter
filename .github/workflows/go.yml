@@ -25,4 +25,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Build
-      run: go build -v ./...
+      run: go build -v
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: bmc_exporter
+        path: bmc_exporter
