@@ -21,4 +21,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: archive
-        path: bazel-bin/archive.tar.gz
+        path: $(bazel info bazel-bin)/archive.tar.gz
