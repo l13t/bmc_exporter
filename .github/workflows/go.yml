@@ -1,0 +1,28 @@
+name: Go
+on:
+  push:
+  pull_request:
+  schedule:
+  - cron: 22 4 22 * *
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        go:
+        - '1.14.11'
+        - '1.15.4'
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Setup
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build
+      run: go build -v ./...
