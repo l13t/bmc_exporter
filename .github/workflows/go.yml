@@ -6,11 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '1.15.4'
-    - run: go build -v
-    - uses: actions/upload-artifact@v2
-      with:
-        name: bmc_exporter
-        path: bmc_exporter
+    - name: Install Bazel
+      env:
+      - BAZEL_VERSION=3.7.0
+      - BAZEL_SHA256=621089dc4d396612603a55f18f55acded29d9b21534ebaa99406a0b4b05029fb
+      run: |
+        wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh"
+        echo "${BAZEL_SHA256}  install.sh" | sha256sum -c
+        chmod +x install.sh
+        ./install.sh --user
+        rm -f install.sh
+    - name: Build
+      run: bazel run //:bmc_exporter -- --version
