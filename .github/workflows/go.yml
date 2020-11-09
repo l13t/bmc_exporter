@@ -11,7 +11,7 @@ jobs:
         BAZEL_VERSION: 3.7.0
         BAZEL_SHA256: 621089dc4d396612603a55f18f55acded29d9b21534ebaa99406a0b4b05029fb
       run: |
-        wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh"
+        curl -sSLo install.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh"
         echo "${BAZEL_SHA256}  install.sh" | sha256sum -c
         chmod +x install.sh
         ./install.sh --user
